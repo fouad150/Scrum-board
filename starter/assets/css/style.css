@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+    font-size: small;
+}
+.pace {
+    display: none;
+}
+img{
+    margin: 8px 9px 0px 0px;
+    width: 23px;
+}
+
+.main-style {
+    min-height: 100vh;
+    background: url(../img/cover/cover-scrum-board.png) no-repeat fixed;
+    background-size: 360px;
+    background-position: right bottom;
+}
