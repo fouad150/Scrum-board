@@ -51,27 +51,25 @@ function reloadTasks(){
         <li class="list-group-item d-flex" >
             <div><img src="./assets/img/${img}" alt=""></div>
             <div class="w-100">
-            <div class="fs-3 fw-bold">${tasks[index].title}</div>
-        <div class="">
-        <div class=""># created in ${tasks[index].date}</div>
-        <div
-            class=""
-            >
-            ${tasks[index].description}
-        </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <div class="">
-                <span class="badge rounded-pill text-bg-primary">${tasks[index].priority}</span>
-                <span class="badge rounded-pill text-bg-secondary">${tasks[index].type}</span>
+                <div class="fs-3 fw-bold">${tasks[index].title}</div>
+                <div class="">
+                    <div class=""># created in ${tasks[index].date}</div>
+                    <div class="">
+                        ${tasks[index].description}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="">
+                        <span class="badge rounded-pill text-bg-primary">${tasks[index].priority}</span>
+                        <span class="badge rounded-pill text-bg-secondary">${tasks[index].type}</span>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="edit(${index})">Edit</button>
+                        <button type="button" class="btn btn-danger" onclick="Delete(${index})">Delete</button>
+                    </div>
+                
+                </div>
             </div>
-            <div>
-                <button type="button" class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="edit(${index})">Edit</button>
-                <button type="button" class="btn btn-danger" onclick="Delete(${index})">Delete</button>
-            </div>
-           
-        </div>
-        </div>
         </li>`;
         document.getElementById(ul).innerHTML+=reloadTask;
         document.getElementById(id_count).innerText=task_index;
@@ -140,7 +138,6 @@ saveButton.addEventListener("click",function(){
     tasks.push(object);
     
     
-    alert(index)
     let task = `
         <li class="list-group-item d-flex" id="task${index}" >
             <div><img src="./assets/img/${img}" alt=""></div>
@@ -199,9 +196,9 @@ function edit(index){
     var saveChangesBtn=document.getElementById("save_changes");
    
     saveChangesBtn.addEventListener("click",function(){
+        
         if(x==0){
             tasks[index].title=document.getElementById("title").value;
-            alert(tasks[index].title);
             var selectedType;
             if (document.getElementById("feature").checked) {
                 selectedType = document.getElementById("feature").value;
