@@ -20,7 +20,7 @@
 	  
       <!-- ================== END core-css ================== -->
    </head>
-   <body class="container-fluid" style="overflow-x: hidden;">
+   <body class="container-fluid" style="overflow-x: hidden;" >
       <!-- BEGIN #app -->
       <div id="app" class="app-without-sidebar">
          <!-- BEGIN #content -->
@@ -37,16 +37,16 @@
                </div>
 
                <div class="">
-                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class=""></i> Add Task</button>
+                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="hideSaveChanges()"><i class=""></i> Add Task</button>
                </div>
             </div>
             <div class="row align-items-start">
                <div class="col">
                   <div class="card">
-                     <div class="card-header text-bg-dark">TO DO</div>
-                     <ul class="list-group list-group-flush">
+                     <div class="card-header text-bg-dark">TO DO(<span id="to_do_count">0</span>)</div>
+                     <ul class="list-group list-group-flush" id="todo-ul">
                         <li class="list-group-item d-flex">
-                           <div><img src="./assets/img/question.png" alt=""></div>
+                           <div><img src="./assets/img/question.png" alt="" id="toDoIcon"></div>
                            <div>
                               <div class="fs-3 fw-bold">Keep all the updated requirements in one place</div>
                               <div class="">
@@ -58,10 +58,16 @@
                                     There is hardly anything more frustrating than having t...
                                  </div>
                               </div>
-                              <div class="">
-                                 <span class="badge rounded-pill text-bg-primary">High</span>
-   
-                                 <span class="badge rounded-pill text-bg-secondary">Feature</span>
+                              <div class="d-flex justify-content-between">
+                                 <div class="">
+                                     <span class="badge rounded-pill text-bg-primary">High</span>
+                                     <span class="badge rounded-pill text-bg-secondary">Feature</span>
+                                 </div>
+                                 <div>
+                                     <button type="button" class="btn btn-info" id="edit" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+                                     <button type="button" class="btn btn-danger">Delete</button>
+                                 </div>
+                         
                               </div>
                            </div>
                           
@@ -160,8 +166,8 @@
                </div>
                <div class="col">
                   <div class="card">
-                     <div class="card-header text-bg-dark">In progress</div>
-                     <ul class="list-group list-group-flush">
+                     <div class="card-header text-bg-dark">In progress(<span id="in_progress_count">0</span>)</div>
+                     <ul class="list-group list-group-flush" id="inprogress-ul">
                         <li class="list-group-item d-flex">
                            <div><img src="./assets/img/work-in-progress.png" alt=""></div>
                            <div>
@@ -248,8 +254,8 @@
                </div>
                <div class="col">
                   <div class="card">
-                     <div class="card-header text-bg-dark">Done</div>
-                     <ul class="list-group list-group-flush">
+                     <div class="card-header text-bg-dark">Done(<span id="done_count">0</span>)</div>
+                     <ul class="list-group list-group-flush" id="done-ul">
                         <li class="list-group-item d-flex">
                            <div><img src="./assets/img/check.png" alt=""></div>
                            <div>
@@ -351,54 +357,54 @@
             <div class="modal-content">
                <div class="modal-header">
                   <h1 class="modal-title fs-5" id="exampleModalLabel">Add task</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                </div>
 
-               <div class="modal-body">
+               <div class="modal-body" id="modal">
                   <div class="mb-3">
                      <label for="exampleFormControlInput1" class="form-label">Title</label>
-                     <input type="text" class="form-control" id="exampleFormControlInput1" />
+                     <input type="text" class="form-control" id="title" />
                   </div>
                   <div class="mb-3">
                      <p>Type</p>
                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                        <label class="form-check-label" for="flexRadioDefault1"> Default radio </label>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="feature" value="Feature" />
+                        <label class="form-check-label" for="feature"> Feature </label>
                      </div>
                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-                        <label class="form-check-label" for="flexRadioDefault2"> Default checked radio </label>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="bug"  value="Bug"/>
+                        <label class="form-check-label" for="bug">Bug </label>
                      </div>
                   </div>
                   <div class="mb-3">
                      <p>priority</p>
-                     <select class="form-select" aria-label="Default select example">
+                     <select class="form-select" aria-label="Default select example" id="priority">
                         <option selected>please select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                      </select>
                   </div>
                   <div class="mb-3">
                      <p>Status</p>
-                     <select class="form-select" aria-label="Default select example">
-                        <option selected>please select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                     <select class="form-select" aria-label="Default select example" id="status" >
+                        <option value="To Do" selected>To do</option>
+                        <option value="In Progress">In progress</option>
+                        <option value="Done">Done</option>
                      </select>
                   </div>
                   <div class="mb-3">
-					<input class="form-control" type="date" name="" id="">
+					<input class="form-control" type="date" name="" id="date">
                   </div>
                   <div class="mb-3">
                      <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                     <textarea class="form-control" id="description" rows="3"></textarea>
                   </div>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                  <button type="button" class="btn btn-primary">Save</button>
+                  <button type="button" class="btn btn-secondary"id="cancel" data-bs-dismiss="modal">cancel</button>
+                  <button type="button" class="btn btn-primary" id="save" data-bs-dismiss="modal">Save</button>
+                  <button type="button" class="btn btn-success" id="save_changes" data-bs-dismiss="modal">Save changes</button>
                </div>
             </div>
          </div>
@@ -407,6 +413,11 @@
       <!-- ================== BEGIN core-js ================== -->
       <script src="assets/js/vendor.min.js"></script>
       <script src="assets/js/app.min.js"></script>
+      <script src="app.js"></script>
+      <script src="data.js"></script>
       <!-- ================== END core-js ================== -->
+      <script>
+         reloadTasks();
+      </script>
    </body>
 </html>
